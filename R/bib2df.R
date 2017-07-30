@@ -1,5 +1,3 @@
-library(tibble)
-
 is_not_empty_string <- function(x){
   x!=""
 }
@@ -27,6 +25,13 @@ parse_entry_fields <- function(x) {
   return(char_division_matrix)
 }
 
+enhanced_substr <- function(x,y) {
+  output <- substr(x, y[1], y[2])
+  filtered_output <- trim_trailing_braces(trim_trailing_whitespace(output))
+  return(filtered_output)
+}
+
+
 bib2df <- function(bib_file) {
   full_file <- stringr::str_c(bib_file, collapse="")
   rawest_entries <- unlist(stringr::str_split(full_file, "@(?i)article")[1])
@@ -43,6 +48,15 @@ bib2df <- function(bib_file) {
     attr(parser_field_locations[[i]], "entry_length") <- entry_lengths[i]
   }
   entry_locations <- lapply(parser_field_locations, parse_entry_fields)
-  print(length(entries))
-  print(entry_locations)
+  output_data <- data.frame(matrix(ncol=length(tibble_vars), nrow=length(entries)))
+  colnames(output_data) <- tibble_vars
+  for (i in 1:ncol(output_data)) {
+    #print(output_data[i])
+    data_entries_locas <- lapply(entry_locations, `[`,i,)
+    new_data_col <- mapply(enhanced_substr, x=entries, y=data_entries_locas, SIMPLIFY=FALSE)
+    filtered_col <- unlist(unname(new_data_col))
+    output_data[i] <- filtered_col
+  }
+  print(output_data["unique-id"])
+  #print(lapply(entry_locations, `[`,1,))
 }
