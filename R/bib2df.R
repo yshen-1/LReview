@@ -55,7 +55,7 @@ bib2df <- function(bib_file) {
   full_file <- stringr::str_c(bib_file, collapse="")
   rawest_entries <- unlist(stringr::str_split(full_file, "@((?i)article|(?i)conference)")[1])
   raw_entries <- rawest_entries[sapply(rawest_entries, is_not_empty_string)]
-  parser_field_regex <- ",\\s*([^={},!@#$%&;\\\\~\\s]*)\\s*="
+  parser_field_regex <- ",\\s*([^={},!@#$%&:/;\\\\~\\s]*)\\s*="
   is_entry <- stringr::str_detect(raw_entries, parser_field_regex)
   entries <- raw_entries[is_entry]
   headers <- stringr::str_match_all(entries, parser_field_regex) #Regex must be ",(NO EQUALS SIGNS or {})=" 
