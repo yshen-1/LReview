@@ -13,5 +13,5 @@ convert2df<-function(file_list){
 
 #TEST SECTION
 
-test_object <- readFiles("~/Ranalysis/SmallScaleTests/wosrecs.bib")
-convert2df(test_object)
+#test_object <- readFiles("~/Ranalysis/LargeScaleTests/scopus.bib")
+#convert2df(test_object)
