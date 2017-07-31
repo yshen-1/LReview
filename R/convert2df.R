@@ -7,11 +7,11 @@ convert2df<-function(file_list){
     subject_file <- file_list[[i]]
     primary_output[[i]] <- switch(attr(subject_file, "file_type"), bib=bib2df(subject_file), csv=csv2df(subject_file), txt=txt2df(subject_file)) 
   }   
-  invisible(primary_output) #make visible later
+  return(primary_output) #make visible later
 }
 
 
 #TEST SECTION
 
-#test_object <- readFiles("~/Ranalysis/LargeScaleTests/scopus.bib")
-#convert2df(test_object)
+test_object <- readFiles("~/Ranalysis/SmallScaleTests/scopus.bib", "~/Ranalysis/SmallScaleTests/wosrecs.bib")
+convert2df(test_object)

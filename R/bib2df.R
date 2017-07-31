@@ -94,5 +94,5 @@ bib2df <- function(bib_file) {
     data_to_write <- unlist(data_locations)
     output_data[i] <- data_to_write
   }
-  return(output_data)
+  return(tibble::as_tibble(output_data))
 }
