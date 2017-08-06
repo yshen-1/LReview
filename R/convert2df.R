@@ -12,7 +12,7 @@ convert2df<-function(file_list){
 
 #TEST SECTION
 
-test_object <- readFiles("~/Ranalysis/LargeScaleTests/scopus.bib", "~/Ranalysis/SmallScaleTests/scopus.bib")
-test_df <- convert2df(test_object)
-print(test_df[[1]], test_df[[2]])
+#test_object <- readFiles("~/Ranalysis/LargeScaleTests/scopus.bib")
+#test_df <- convert2df(test_object)
+#print(test_df[[1]]$author)
 #DT::datatable(test_df[[1]])
