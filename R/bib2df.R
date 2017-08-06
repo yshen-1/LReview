@@ -53,7 +53,11 @@ data_matrix_extraction <- function(x,y){
 
 bib2df <- function(bib_file) {
   full_file <- stringr::str_c(bib_file, collapse="")
-  rawest_entries <- unlist(stringr::str_split(full_file, "@((?i)article|(?i)conference)")[1])
+  bibtex_entrytypes <- c("article", "book", "booklet", "conference", "inbook", "incollection", "inproceedings", "manual", "mastersthesis", "misc", "phdthesis", "proceedings", "techreport", "unpublished")
+  
+  bibtex_entrytype_regex <- stringr::str_c(bibtex_entrytypes, collapse="|(?i)")
+  full_bibtexentrytype_regex <- stringr::str_c("@((?i)", bibtex_entrytype_regex, ")", collapse="")
+  rawest_entries <- unlist(stringr::str_split(full_file, full_bibtexentrytype_regex)[1])
   raw_entries <- rawest_entries[sapply(rawest_entries, is_not_empty_string)]
   parser_field_regex <- ",\\s*([^={},!@#$%&:/;\\\\~\\s]*)\\s*="
   is_entry <- stringr::str_detect(raw_entries, parser_field_regex)
@@ -63,6 +67,7 @@ bib2df <- function(bib_file) {
   number_of_vars <- lapply(headers, nrow)
   var_defining_value <- which.max(number_of_vars)
   tibble_vars <- stringr::str_to_lower(trim_trailing_whitespace(headers[[var_defining_value]][,2]))
+  print(tibble_vars)
   parser_fields <- trim_trailing_whitespace(headers[[var_defining_value]][,2])
   entry_lengths <- stringr::str_length(entries)
   for (i in 1:length(parser_field_locations)) {
