@@ -22,6 +22,9 @@ tidydf <- function(list_of_dfs) {
       numeric_entries <- sum(has_numbers, na.rm=TRUE)
       if ((numeric_entries/total_entries) > 0.7){
         output_df[[j]] <- as.numeric(current_col)
+      } else {
+        uppercase_col <- stringr::str_to_upper(output_df[[j]])
+        output_df[[j]] <- uppercase_col
       }
     }
     tidy_output[[i]] <- output_df 
