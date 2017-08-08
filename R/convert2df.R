@@ -1,5 +1,3 @@
-source("readFiles.R") #Delete later
-source("bib2df.R")
 convert2df<-function(file_list){
   primary_output <- vector("list", length(file_list))
   for (i in 1:length(file_list)) {
