@@ -1,5 +1,6 @@
 #Tidies up author columns to format used by bibliometrix,
 #converts columns containing numbers to dbl type
+#Replace all whitespace w/ space
 tidydf <- function(list_of_dfs) {
   tidy_output <- vector("list", length=length(list_of_dfs))
   for (i in 1:length(list_of_dfs)) {
