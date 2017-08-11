@@ -2,13 +2,6 @@ is_not_empty_string <- function(x){
   x!=""
 }
 
-trim_trailing_whitespace <- function(x){
-  gsub("^\\s+|\\s+$","",x)
-}
-trim_trailing_braces <- function(x) {
-  gsub("^\\{+|\\}+$", "", x)
-}
-
 parse_entry_fields <- function(x) {
   char_division_matrix <- matrix(, nrow=nrow(x), ncol=2)
   entry_length <- attr(x, "entry_length")

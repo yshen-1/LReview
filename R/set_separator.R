@@ -8,13 +8,8 @@
 #                     ";", ";", ";", "   ", "   ", "   ",
 #                     ";", NA, "   ", NA, NA, NA, NA, NA,
 #                     NA, NA, NA, NA)
-trim_trailing_whitespace <- function(x){
-  gsub("^\\s+|\\s+$", "", x)
-}
 
-replace_internal_spaces <- function(x){
-  gsub("\\s+", " ", x)
-}
+
 set_separator <- function(tidy_df, column_name, separator){
   current_column <- tidy_df[[column_name]]
   split_column <- stringr::str_split(current_column, separator)
