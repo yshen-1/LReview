@@ -1,0 +1,83 @@
+---
+title: "Bibliometric Analysis"
+date: 2017-07-31
+runtime: shiny
+output: html_document
+---
+<style>
+body {
+  position: absolute;
+  left: 20px;
+}
+</style>
+
+``` {r setup, include=FALSE, cache=FALSE}
+devtools::load_all("bibliometrix0.2")
+library(DT)
+options(shiny.maxRequestSize=30*1024^2)
+options(width=10000)
+```
+
+```{r, echo=FALSE}
+fileInput("bibData", "Select a .bib file", accept=".bib")
+files_for_processing <- reactive({
+  input$bibData
+})
+
+raw_data <- reactive({
+  readFilesShiny(c(files_for_processing()$datapath,files_for_processing()$name)) %>% convert2dfShiny()
+})
+```
+
+The file that was uploaded was `r reactive(files_for_processing()$name)`. The following text is a series of pointless filler meant to stretch the width of the shiny widget displaying the coupling network.
+
+# Data Analysis {.tabset} 
+## Dataset Summary
+
+```{r, echo=FALSE}
+mainPanel(
+  DT::renderDataTable({
+    raw_data()[[1]]
+  }),
+  width=12
+)
+```
+
+## Network Analysis
+```{r, echo=FALSE}
+textInput("target_col", label="Column for Network Analysis", value="", width="100%")
+textInput("separator", label="Column Data Separator String", value="", width="100%")
+numericInput("row1", label="Row for start of Analysis", value=0, width="100%")
+numericInput("row2", label="Row for end of Analysis", value=0, width="100%")
+target_col_name <- reactive({
+  input$target_col
+})
+sep <- reactive({
+  input$separator
+})
+
+row1 <- reactive({
+  input$row1
+})
+
+row2 <- reactive({
+  input$row2
+})
+```
+
+```{r, echo=FALSE}
+get_nodes_edges_list <- reactive({
+  tidydf <- tidydf(raw_data())[[1]]
+  ultra_tidydf <- set_separator(tidydf, target_col_name(), sep())
+  networkAnalysis(ultra_tidydf, target_col_name(), row1(), row2()) 
+})
+
+fluidPage(
+  visNetwork::renderVisNetwork({
+    new_list <- get_nodes_edges_list()
+    visNetwork::visNetwork(new_list$nodes, new_list$edges) %>%
+      visNetwork::visPhysics(solver="barnesHut", maxVelocity=10, barnesHut=list(damping=1, avoidOverlap=1, springLength=200)) %>%
+      visNetwork::visEdges(smooth=TRUE)
+  }), width=12
+)
+```
