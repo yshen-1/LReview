@@ -33,7 +33,6 @@ readFilesShiny <- function(...){
   arguments <- list(...)
   char_args <- arguments[unlist(lapply(arguments, is.character))]
   filtered_args <- char_args[unlist(lapply(char_args, list_str_detect, regex = "\\.((csv)|(bib)|(txt))$"))]
-  print(filtered_args)
   if (length(filtered_args)==0) {
       print("Please input a valid file (csv, txt, bib)")
       return(NA)
