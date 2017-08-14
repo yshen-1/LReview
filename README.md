@@ -1,7 +1,7 @@
 # Bibliometrix 0.2 Description
 
-Bibliometrix 0.2 is a R package based off of bibliometrix and is intended to 
-mimic the functions bibliometrix provides in a more modern/user friendly manner.
+Bibliometrix 0.2 is a R package based off of `bibliometrix` and is intended to 
+mimic the functions `bibliometrix` provides in a more modern/user friendly manner.
 
 # Sample Workflow
 1. dataFiles <- bibliometrix0.2::readFiles("pathtoFile1", "pathtoFile2", ...)
