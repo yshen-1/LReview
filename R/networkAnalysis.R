@@ -27,5 +27,5 @@ networkAnalysis <- function(tidied_up_df, column_name){
   final_edge_matrix <- na.omit(edge_matrix)
   edges <- data.frame(final_edge_matrix)
   colnames(edges) <- c("from", "to")
-  visNetwork::visNetwork(nodes, edges, width="100%")
+  return(list(nodes=nodes, edges=edges))
 }
