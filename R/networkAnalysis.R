@@ -1,10 +1,11 @@
 mod_iselement <- function(v, el) {
   return(is.element(el, v))
 }
-networkAnalysis <- function(tidied_up_df, column_name){
+networkAnalysis <- function(tidied_up_df, column_name, row1, row2){
   #ONLY USE ON COLUMNS AFTER set_separator() tidy function has been used.
-  target_col <- tidied_up_df[[column_name]]
-  sep <- attr(target_col, "sep")
+  sliced_df <- tidied_up_df[row1:row2,]
+  target_col <- sliced_df[[column_name]]
+  sep <- attr(tidied_up_df[[column_name]], "sep")
   split_col <- stringr::str_split(target_col, sep)
   labels <- unique(unlist(lapply(split_col, unique)))
   ids <- 1:length(labels)
