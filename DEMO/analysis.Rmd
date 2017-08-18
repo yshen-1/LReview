@@ -38,7 +38,11 @@ The file that was uploaded was `r reactive(files_for_processing()$name)`. The fo
 checkboxGroupInput("columns_to_view", label="Toggle columns for viewing", choices=NULL, inline=TRUE, width="100%")
 mainPanel(
   DT::renderDataTable({
-    raw_data()[[1]][input$columns_to_view]
+    if ((!is.null(input$bibData)) && (!is.null(input$columns_to_view))){
+      raw_data()[[1]][input$columns_to_view]
+    } else {
+      NULL
+    }
   }),
   width=12
 )
@@ -87,10 +91,14 @@ get_nodes_edges_list <- reactive({
 
 fluidPage(
   visNetwork::renderVisNetwork({
-    new_list <- get_nodes_edges_list()
-    visNetwork::visNetwork(new_list$nodes, new_list$edges) %>%
-      visNetwork::visPhysics(solver="barnesHut", maxVelocity=10, barnesHut=list(damping=1, avoidOverlap=1, springLength=200)) %>%
-      visNetwork::visEdges(smooth=TRUE)
+    if (!is.null(input$bibData)){
+      new_list <- get_nodes_edges_list()
+      visNetwork::visNetwork(new_list$nodes, new_list$edges) %>%
+        visNetwork::visPhysics(solver="barnesHut", maxVelocity=10, barnesHut=list(damping=1, avoidOverlap=1, springLength=200)) %>%
+        visNetwork::visEdges(smooth=TRUE)
+    } else {
+      NULL
+    }
   }), width=12
 )
 ```
