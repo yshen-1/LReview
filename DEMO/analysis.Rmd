@@ -35,17 +35,24 @@ The file that was uploaded was `r reactive(files_for_processing()$name)`. The fo
 ## Dataset Summary
 
 ```{r, echo=FALSE}
+checkboxGroupInput("columns_to_view", label="Toggle columns for viewing", choices=NULL, inline=TRUE, width="100%")
 mainPanel(
   DT::renderDataTable({
-    raw_data()[[1]]
+    raw_data()[[1]][input$columns_to_view]
   }),
   width=12
 )
+
+observe({
+  if (!is.null(input$bibData)){
+    updateCheckboxGroupInput(session, "columns_to_view", label="Toggle columns for viewing", choices=colnames(raw_data()[[1]]), inline=TRUE)
+  }
+})
 ```
 
 ## Network Analysis
 ```{r, echo=FALSE}
-textInput("target_col", label="Column for Network Analysis", value="", width="100%")
+selectInput("target_col", label="Column for Network Analysis", choices=NULL, multiple=FALSE, width="100%")
 textInput("separator", label="Column Data Separator String", value="", width="100%")
 numericInput("row1", label="Row for start of Analysis", value=0, width="100%")
 numericInput("row2", label="Row for end of Analysis", value=0, width="100%")
@@ -62,6 +69,12 @@ row1 <- reactive({
 
 row2 <- reactive({
   input$row2
+})
+
+observe({
+  if (!is.null(input$bibData)){
+    updateSelectInput(session, "target_col", label="Column for Network Analysis", choices=colnames(raw_data()[[1]]))
+  }
 })
 ```
 
