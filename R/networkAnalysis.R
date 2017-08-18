@@ -6,6 +6,9 @@ networkAnalysis <- function(tidied_up_df, column_name, row1, row2){
   sliced_df <- tidied_up_df[row1:row2,]
   target_col <- sliced_df[[column_name]]
   sep <- attr(tidied_up_df[[column_name]], "sep")
+  if ((sep=="") || (nrow(sliced_df)==0)){
+    return(NULL)
+  }
   split_col <- stringr::str_split(target_col, sep)
   labels <- unique(unlist(lapply(split_col, unique)))
   ids <- 1:length(labels)
