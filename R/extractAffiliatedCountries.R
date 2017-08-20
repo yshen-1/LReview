@@ -11,11 +11,16 @@ extractAffiliatedCountries <- function(tidied_df){
       countries_col[[i]] <- NA
     } else {
       raw_countries <- unique(unlist(lapply(split_entries[[i]], function(x){ x[,2]})))
-      tidier_countries <- unlist(lapply(stringr::str_match_all(raw_countries, "([^0123456789]*)$"), function(x){x[,2]}))
-      countries <- trim_trailing_whitespace(tidier_countries[sapply(tidier_countries, function(x){x!=""})])
-      stripped_countries <- unique(gsub("\\.", "", countries))
-      data_entry <- stringr::str_c(stripped_countries, collapse=sep)
-      countries_col[[i]] <- data_entry
+      if (identical(raw_countries, character(0))){
+        print("No country affiliation found.")
+        countries_col[[i]] <- NA
+      } else {
+        tidier_countries <- unlist(lapply(stringr::str_match_all(raw_countries, "([^0123456789]*)$"), function(x){x[,2]}))
+        countries <- trim_trailing_whitespace(tidier_countries[sapply(tidier_countries, function(x){x!=""})])
+        stripped_countries <- unique(gsub("\\.", "", countries))
+        data_entry <- stringr::str_c(stripped_countries, collapse=sep)
+        countries_col[[i]] <- data_entry
+      }
     }
   }
   return(dplyr::mutate(tidied_df, countries_collab=unlist(countries_col)))

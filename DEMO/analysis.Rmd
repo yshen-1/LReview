@@ -20,12 +20,17 @@ options(width=10000)
 
 ```{r, echo=FALSE}
 fileInput("bibData", "Select a .bib file", accept=".bib")
+textInput("affil_separator", label="Affiliation Column Separator String", value="", width="100%")
 files_for_processing <- reactive({
   input$bibData
 })
 
 raw_data <- reactive({
   readFilesShiny(c(files_for_processing()$datapath,files_for_processing()$name)) %>% convert2dfShiny()
+})
+
+tidied_data <- reactive({
+  extractAffiliatedCountries(set_separator(tidydf(raw_data())[[1]], "affiliation", input$affil_separator))
 })
 ```
 
@@ -39,7 +44,7 @@ checkboxGroupInput("columns_to_view", label="Toggle columns for viewing", choice
 mainPanel(
   DT::renderDataTable({
     if ((!is.null(input$bibData)) && (!is.null(input$columns_to_view))){
-      raw_data()[[1]][input$columns_to_view]
+      tidied_data()[input$columns_to_view]
     } else {
       NULL
     }
@@ -49,7 +54,7 @@ mainPanel(
 
 observe({
   if (!is.null(input$bibData)){
-    updateCheckboxGroupInput(session, "columns_to_view", label="Toggle columns for viewing", choices=colnames(raw_data()[[1]]), inline=TRUE)
+    updateCheckboxGroupInput(session, "columns_to_view", label="Toggle columns for viewing", choices=colnames(tidied_data()), inline=TRUE)
   }
 })
 ```
@@ -77,14 +82,14 @@ row2 <- reactive({
 
 observe({
   if (!is.null(input$bibData)){
-    updateSelectInput(session, "target_col", label="Column for Network Analysis", choices=colnames(raw_data()[[1]]))
+    updateSelectInput(session, "target_col", label="Column for Network Analysis", choices=colnames(tidied_data()))
   }
 })
 ```
 
 ```{r, echo=FALSE}
 get_nodes_edges_list <- reactive({
-  tidydf <- tidydf(raw_data())[[1]]
+  tidydf <- tidied_data()
   ultra_tidydf <- set_separator(tidydf, target_col_name(), sep())
   networkAnalysis(ultra_tidydf, target_col_name(), row1(), row2()) 
 })
