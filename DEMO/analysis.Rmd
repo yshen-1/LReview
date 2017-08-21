@@ -111,3 +111,54 @@ fluidPage(
   }), width=12
 )
 ```
+
+##Column Summary
+```{r, echo=FALSE}
+selectInput("target_col_for_analysis", label="Column for Summary", choices=NULL, multiple=FALSE, width="100%")
+textInput("separator_for_col", label="Column Data Separator String", value="", width="100%")
+
+target_col_for_summary <- reactive({
+  input$target_col_for_analysis
+})
+sep_summary_col <- reactive({
+  input$separator_for_col
+})
+
+observe({
+  if (!is.null(input$bibData)){
+    updateSelectInput(session, "target_col_for_analysis", label="Column for Summary", choices=colnames(tidied_data()))
+  }
+})
+
+get_summary <- reactive({
+  processed <- set_separator(tidied_data(), target_col_for_summary(), sep_summary_col())
+  colAnalysis(processed, target_col_for_summary())
+})
+```
+
+###Row Entry Analysis
+```{r, echo=FALSE}
+mainPanel(
+  DT::renderDataTable({
+    if (!is.null(input$bibData)){
+      get_summary()[[2]]
+    } else {
+      NULL
+    }
+  }),
+  width=12
+)
+```
+###Frequency Analysis
+```{r, echo=FALSE}
+mainPanel(
+  DT::renderDataTable({
+    if (!is.null(input$bibData)){
+      get_summary()[[1]]
+    } else {
+      NULL
+    }
+  }),
+  width=12
+)
+```
