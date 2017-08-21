@@ -2,6 +2,9 @@ colAnalysis <- function(tidy_df, column_name){
   #tidy_df is a tibble returned by set_separator()
   current_col <- tidy_df[[column_name]]
   sep <- attr(current_col, "sep")
+  if (sep=="" || is.null(sep)){
+    sep <- ";"
+  }
   split_col <- stringr::str_split(current_col, sep)
   values <- unlist(split_col)
   total_values <- length(values)

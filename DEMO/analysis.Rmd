@@ -137,6 +137,7 @@ get_summary <- reactive({
 ```
 
 ###Row Entry Analysis
+
 ```{r, echo=FALSE}
 mainPanel(
   DT::renderDataTable({
@@ -149,7 +150,9 @@ mainPanel(
   width=12
 )
 ```
+
 ###Frequency Analysis
+
 ```{r, echo=FALSE}
 mainPanel(
   DT::renderDataTable({
