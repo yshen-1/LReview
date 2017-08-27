@@ -1,12 +1,12 @@
-# Bibliometrix 0.2 Description
+# tidy_bibliometrics Description
 
-Bibliometrix 0.2 is a R package based off of `bibliometrix` and is intended to 
+`tidy_bibliometrics` is a R package based off of `bibliometrix` and is intended to 
 mimic the functions `bibliometrix` provides in a more modern/user friendly manner.
 
 # Sample Workflow
-1. `dataFiles <- bibliometrix0.2::readFiles("pathtoFile1", "pathtoFile2", ...)`
-2. `parsedDataFiles <- bibliometrix0.2::convert2df(dataFiles)`
-3. `tidiedDataframes <- bibliometrix0.2::tidydf(parsedDataFiles)`
+1. `dataFiles <- tidy_bibliometrics::readFiles("pathtoFile1", "pathtoFile2", ...)`
+2. `parsedDataFiles <- tidy_bibliometrics::convert2df(dataFiles)`
+3. `tidiedDataframes <- tidy_bibliometrics::tidydf(parsedDataFiles)`
 
 ## For a coupling network analysis:
 1. `dataForAnalysis <- tidiedDataframes[[i]]`

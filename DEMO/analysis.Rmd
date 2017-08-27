@@ -12,7 +12,7 @@ body {
 </style>
 
 ``` {r setup, include=FALSE, cache=FALSE}
-devtools::load_all("~/Rbibliometricsdev/bibliometrix0.2")
+devtools::load_all("~/Rbibliometricsdev/tidy_bibliometrics")
 library(DT)
 options(shiny.maxRequestSize=30*1024^2)
 options(width=10000)
