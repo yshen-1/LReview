@@ -19,7 +19,11 @@ extractAffiliatedCountries <- function(tidied_df){
         countries <- trim_trailing_whitespace(tidier_countries[sapply(tidier_countries, function(x){x!=""})])
         stripped_countries <- unique(gsub("\\.", "", countries))
         data_entry <- stringr::str_c(stripped_countries, collapse=sep)
-        countries_col[[i]] <- data_entry
+        if ((identical(data_entry, character(0))) || (data_entry=="")){
+          countries_col[[i]] <- NA
+        } else {
+          countries_col[[i]] <- data_entry
+        }
       }
     }
   }
