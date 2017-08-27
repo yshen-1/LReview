@@ -76,7 +76,6 @@ bib2df <- function(bib_file) {
     parsed_entries[[i]] <- entry_matrix
     rm(entry_matrix)
   }
-  #for (i in 1:1){
   for (i in 1:length(tibble_vars)) {
     entry_regex <- stringr::str_c(",\\s*(?i)", tibble_vars[i], "\\s*=", collapse="")
     entries_with_data <- lapply(parsed_entries, FUN=enhanced_str_detect, entry_regex)

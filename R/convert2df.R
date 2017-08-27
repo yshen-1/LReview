@@ -2,15 +2,7 @@ convert2df<-function(file_list){
   primary_output <- vector("list", length(file_list))
   for (i in 1:length(file_list)) {
     subject_file <- file_list[[i]]
-    primary_output[[i]] <- switch(attr(subject_file, "file_type"), bib=bib2df(subject_file), csv=csv2df(subject_file), txt=txt2df(subject_file)) 
+    primary_output[[i]] <- switch(attr(subject_file, "file_type"), bib=bib2df(subject_file)) 
   }   
-  return(primary_output) #make visible later
+  return(primary_output) 
 }
-
-
-#TEST SECTION
-
-#test_object <- readFiles("~/Ranalysis/LargeScaleTests/scopus.bib")
-#test_df <- convert2df(test_object)
-#print(test_df[[1]]$author)
-#DT::datatable(test_df[[1]])

@@ -1,4 +1,3 @@
-#@TODO REMOVE NAS from COL
 colAnalysis <- function(tidy_df, column_name){
   #tidy_df is a tibble returned by set_separator()
   current_col <- tidy_df[[column_name]]

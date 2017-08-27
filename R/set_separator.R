@@ -1,15 +1,6 @@
 #Sets data separators for each column
 #list_of_seps is list of vectors (each entry in each vector corresponds to a column in a df)
 
-
-#~SmallScaleTests/wosrecs.bib separator list:
-#wosrecs_seps <- list(";", NA, NA, NA, NA, NA, NA, NA, NA,
-#                     NA, NA, NA, "   ", NA, NA, NA, ";",
-#                     ";", ";", ";", "   ", "   ", "   ",
-#                     ";", NA, "   ", NA, NA, NA, NA, NA,
-#                     NA, NA, NA, NA)
-
-
 set_separator <- function(tidy_df, column_name, separator){
   if (separator!=""){
     current_column <- tidy_df[[column_name]]

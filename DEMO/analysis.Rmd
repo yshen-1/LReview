@@ -100,7 +100,7 @@ fluidPage(
       new_list <- get_nodes_edges_list()
       if (!is.null(new_list)){
         visNetwork::visNetwork(new_list$nodes, new_list$edges) %>%
-          visNetwork::visPhysics(solver="barnesHut", maxVelocity=10, barnesHut=list(damping=1, avoidOverlap=1, springLength=200)) %>%
+          visNetwork::visPhysics(solver="barnesHut", maxVelocity=10, barnesHut=list(damping=1, avoidOverlap=1, springLength=500)) %>%
           visNetwork::visEdges(smooth=TRUE)
       } else {
         NULL
