@@ -1,6 +1,6 @@
 ---
 title: "Bibliometric Analysis"
-date: 2017-07-31
+date: 2017-08-29
 runtime: shiny
 output: html_document
 ---
