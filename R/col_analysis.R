@@ -1,4 +1,4 @@
-colAnalysis <- function(tidy_df, column_name){
+col_analysis <- function(tidy_df, column_name){
   #tidy_df is a tibble returned by set_separator()
   current_col <- tidy_df[[column_name]]
   sep <- attr(current_col, "sep")

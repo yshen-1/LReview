@@ -1,7 +1,7 @@
 mod_iselement <- function(v, el) {
   return(is.element(el, v))
 }
-networkAnalysis <- function(tidied_up_df, column_name, row1, row2){
+network_analysis <- function(tidied_up_df, column_name, row1, row2){
   #ONLY USE ON COLUMNS AFTER set_separator() tidy function has been used.
   sliced_df <- tidied_up_df[row1:row2,]
   target_col <- sliced_df[[column_name]]

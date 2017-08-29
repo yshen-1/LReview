@@ -1,4 +1,4 @@
-extractAffiliatedCountries <- function(tidied_df){
+extract_affiliated_countries <- function(tidied_df){
   #Use set_separator() function on affiliation column first.
   #sep is "   " for wosrecs, ";" for scopus
   sep <- attr(tidied_df$affiliation, "sep")

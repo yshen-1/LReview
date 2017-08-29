@@ -26,11 +26,11 @@ files_for_processing <- reactive({
 })
 
 raw_data <- reactive({
-  readFilesShiny(c(files_for_processing()$datapath,files_for_processing()$name)) %>% convert2dfShiny()
+  read_files_shiny(c(files_for_processing()$datapath,files_for_processing()$name)) %>% convert2df_shiny()
 })
 
 tidied_data <- reactive({
-  extractAffiliatedCountries(set_separator(tidydf(raw_data())[[1]], "affiliation", input$affil_separator))
+  extract_affiliated_countries(set_separator(tidydf(raw_data())[[1]], "affiliation", input$affil_separator))
 })
 ```
 
@@ -91,7 +91,7 @@ observe({
 get_nodes_edges_list <- reactive({
   tidydf <- tidied_data()
   ultra_tidydf <- set_separator(tidydf, target_col_name(), sep())
-  networkAnalysis(ultra_tidydf, target_col_name(), row1(), row2()) 
+  network_analysis(ultra_tidydf, target_col_name(), row1(), row2()) 
 })
 
 fluidPage(
@@ -132,7 +132,7 @@ observe({
 
 get_summary <- reactive({
   processed <- set_separator(tidied_data(), target_col_for_summary(), sep_summary_col())
-  colAnalysis(processed, target_col_for_summary())
+  col_analysis(processed, target_col_for_summary())
 })
 ```
 

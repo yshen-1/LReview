@@ -1,4 +1,4 @@
-convert2dfShiny<-function(file_list){
+convert2df_shiny<-function(file_list){
   primary_output <- vector("list", length(file_list))
   for (i in 1:length(file_list)) {
     print("File complete")

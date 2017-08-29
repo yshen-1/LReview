@@ -51,7 +51,7 @@ data_matrix_extraction <- function(x,y){
   return(x[y,2])
 }
 
-bib2dfShiny <- function(bib_file) {
+bib2df_shiny <- function(bib_file) {
   full_file <- stringr::str_c(bib_file, collapse="")
   bibtex_entrytypes <- c("article", "book", "booklet", "conference", "inbook", "incollection", "inproceedings", "manual", "mastersthesis", "misc", "phdthesis", "proceedings", "techreport", "unpublished")
   
