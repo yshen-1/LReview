@@ -1,4 +1,4 @@
-Package: tidy_bibliometrics
+Package: tidybibliometrics
 Title: A package for examining the contents of a bibtex file from ISI or SCOPUS
 Version: 0.0.0.9000
 Authors@R: person("Yuyi", "Shen", email = "yuyi.shen3@gmail.com", role = c("aut", "cre"))
